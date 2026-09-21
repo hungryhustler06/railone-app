@@ -418,7 +418,7 @@ async def bookings_screen():
                                 <div class="d-col">
                                     <span class="lbl">Ticket Type</span>
                                     <!-- CHANGE THIS TICKET TYPE -->
-                                    <span class="val">YEARLY</span>
+                                    <span class="val">QUARTERLY</span>
                                 </div>
                                 <div class="d-col">
                                     <span class="lbl">UTS: X0F7EES082</span>
