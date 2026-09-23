@@ -79,6 +79,15 @@ async def home_screen():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RailOne Home</title>
+        <!-- PWA Links -->
+        <link rel="manifest" href="/static/manifest.json">
+        <meta name="theme-color" content="#ffffff">
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/static/sw.js')
+                .then(() => console.log('Service Worker Registered'));
+            }
+        </script>
         <style>
             body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; background: #ffffff; color: #1e293b; display: flex; justify-content: center; }
             .app-container { width: 100%; max-width: 414px; position: relative; padding-bottom: 80px; box-shadow: 0 0 20px rgba(0,0,0,0.05); min-height: 100vh; }
@@ -198,6 +207,15 @@ async def login_screen():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RailOne - Login</title>
+        <!-- PWA Links -->
+        <link rel="manifest" href="/static/manifest.json">
+        <meta name="theme-color" content="#ffffff">
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/static/sw.js')
+                .then(() => console.log('Service Worker Registered'));
+            }
+        </script>
         <style>
             body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; background: linear-gradient(to bottom, #f0f9ff 0%, #ffffff 40%); color: #1e293b; display: flex; justify-content: center; min-height: 100vh; }
             .app-container { width: 100%; max-width: 414px; padding: 60px 24px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; }
