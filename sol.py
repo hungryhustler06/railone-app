@@ -130,7 +130,7 @@ async def home_screen():
             .btn { border: 1px solid white; background: transparent; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; }
             
             /* Bottom Nav */
-            .bottom-nav { position: absolute; bottom: 0; width: 100%; background: #0052cc; color: white; display: flex; justify-content: space-around; padding: 12px 0 20px; }
+            .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 414px; background: #0052cc; color: white; display: flex; justify-content: space-around; padding: 12px 0 20px; z-index: 100; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); }
             .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 11px; opacity: 0.6; cursor: pointer; }
             .nav-item.active { opacity: 1; font-weight: 600; }
             .nav-icon { font-size: 22px; margin-bottom: 4px; }
