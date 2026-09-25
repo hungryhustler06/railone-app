@@ -576,9 +576,25 @@ async def view_ticket():
             .footer-rules { background: #f1f5f9; padding: 20px 16px; font-size: 12px; color: #475569; line-height: 1.6; border-top: 1px solid #e2e8f0; }
             .footer-rules strong { color: #1e293b; font-size: 14px; display: block; margin-bottom: 8px; }
             .footer-rules p { margin: 0 0 12px 0; }
+            .demo-watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 4rem;
+    color: rgba(255, 0, 0, 0.25);
+    white-space: nowrap;
+    pointer-events: none; /* Ensures you can still click buttons underneath it */
+    z-index: 9999;
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    user-select: none;
+}
         </style>
     </head>
     <body>
+    <div class="demo-watermark">Developer Demo</div>
         <div class="app-container">
             <!-- Header -->
             <div class="header">
