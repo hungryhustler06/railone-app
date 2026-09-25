@@ -497,206 +497,233 @@ async def view_ticket():
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
         <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; background: #e2e8f0; display: flex; justify-content: center; }
-            .app-container { width: 100%; max-width: 414px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-            
-            /* Header */
-            .header { background: #0052cc; color: white; display: flex; align-items: center; padding: 12px 16px; gap: 16px; }
-            .back-btn { font-size: 24px; cursor: pointer; padding-right: 8px; }
-            .header-titles { flex-grow: 1; display: flex; flex-direction: column; }
-            .h-title { font-size: 18px; font-weight: 500; }
-            .h-sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
-            .menu-btn { font-size: 24px; }
-            
-            /* Welcome Strip */
-            .welcome-strip { background: #f8fafc; padding: 10px 16px; font-size: 12px; color: #64748b; border-bottom: 1px solid #e2e8f0; text-align: center; }
-            
-            /* Dynamic Banner */
-            .dynamic-banner { 
-                background-color: #000000;
-                background-image: 
-                    linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a), 
-                    linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 75%, #1a1a1a 75%, #1a1a1a);
-                background-size: 20px 20px;
-                background-position: 0 0, 10px 10px;
-                color: white; padding: 24px 16px; text-align: center; position: relative;
-                border-top: 18px solid #111; border-bottom: 18px solid #111;
-                box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
-            }
-            
-            /* English watermark on the left (bottom to top, single instance) */
-            .dynamic-banner::before { 
-                content: 'INDIAN RAILWAYS'; 
-                position: absolute; left: 8px; top: 0; bottom: 0; 
-                writing-mode: vertical-rl; transform: rotate(180deg);
-                font-size: 16px; font-weight: bold; color: rgba(255,255,255,0.4); 
-                letter-spacing: 3px; display: flex; align-items: center; justify-content: center;
-            }
-            
-            /* Hindi watermark on the right (top to bottom, single instance) */
-            .dynamic-banner::after { 
-                content: 'भारतीय रेल'; 
-                position: absolute; right: 8px; top: 0; bottom: 0; 
-                writing-mode: vertical-rl; 
-                font-size: 18px; font-weight: bold; color: rgba(255,255,255,0.4); 
-                letter-spacing: 3px; display: flex; align-items: center; justify-content: center;
-            }
-            
-            .d-text { font-size: 13px; color: #cbd5e1; margin-bottom: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
-            .timer { 
-                font-size: 54px; font-weight: 800; color: #ff3b30; 
-                margin: 4px 0 12px; font-family: monospace; letter-spacing: 2px;
-                text-shadow: 0 0 8px rgba(255, 59, 48, 0.4); 
-            }
-            .d-date { color: #f59e0b; font-size: 22px; font-weight: 800; margin-bottom: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
-            .r-code { font-size: 13px; font-weight: bold; margin: 8px 0; letter-spacing: 1px; }
-            
-            /* Data Grid */
-            .ticket-data { background: white; padding: 20px 16px 12px; display: flex; flex-direction: column; gap: 16px; }
-            .data-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-            .data-group { display: flex; flex-direction: column; gap: 4px; }
-            .d-lbl { color: #475569; font-size: 11px; }
-            .d-val { color: #0f172a; font-weight: 700; font-size: 14px; }
-            .d-val-active { color: #16a34a; font-weight: bold; font-size: 12px; }
-            .via-row { display: flex; gap: 8px; font-size: 13px; font-weight: 600; color: #0f172a; align-items: center; padding: 8px 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); margin: 4px 0; }
-            
-            /* Bottom Section Layout */
-            .bottom-section { display: flex; flex-direction: column; align-items: center; padding: 0 16px 24px; background: white; }
-            
-            /* Pink Note Box */
-            .pink-note { background: #ffe4e6; color: #e11d48; padding: 12px 16px; border-radius: 8px; font-size: 12px; text-align: center; width: 100%; box-sizing: border-box; margin: 16px 0; line-height: 1.4; }
-            
-            /* Upgrade Button */
-            .upgrade-btn { background: #2563eb; color: white; border: none; padding: 14px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; width: 90%; margin-bottom: 24px; cursor: pointer; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); }
-            
-            /* QR Section */
-            #qrcode { margin-bottom: 24px; }
-            
-            /* Footer Rules */
-            .footer-rules { background: #f1f5f9; padding: 20px 16px; font-size: 12px; color: #475569; line-height: 1.6; border-top: 1px solid #e2e8f0; }
-            .footer-rules strong { color: #1e293b; font-size: 14px; display: block; margin-bottom: 8px; }
-            .footer-rules p { margin: 0 0 12px 0; }
-            .demo-watermark {
-    position: fixed;
+           body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.ticket-wrapper {
+    background-color: #ffffff;
+    max-width: 414px;
+    margin: 0 auto;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Watermark */
+.demo-watermark {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 4rem;
-    color: rgba(255, 0, 0, 0.25);
+    font-size: 3.5rem;
+    color: rgba(255, 0, 0, 0.15);
     white-space: nowrap;
-    pointer-events: none; /* Ensures you can still click buttons underneath it */
+    pointer-events: none;
     z-index: 9999;
     font-weight: 900;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     user-select: none;
+}
+
+/* Header & Timer */
+.header-title {
+    text-align: center;
+    color: #cc0000;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.dynamic-timer {
+    text-align: center;
+    color: #ff9900;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.booking-header {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+/* Active Status Bar */
+.status-bar {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* Data Grid */
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 10px;
+    margin-bottom: 20px;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.data-value {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.via-route {
+    background-color: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Passenger Details Grid */
+.passenger-section {
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-greeting {
+    text-align: center;
+    color: #0052cc;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 20px;
 }
         </style>
     </head>
     <body>
+    <div class="ticket-wrapper">
+    <!-- The Permanent Developer Watermark -->
     <div class="demo-watermark">Developer Demo</div>
-        <div class="app-container">
-            <!-- Header -->
-            <div class="header">
-                <span class="back-btn" onclick="window.location.href='/bookings'">←</span>
-                <div class="header-titles">
-                    <div class="h-title">Booking Details</div>
-                    <div class="h-sub">Mobile: 8169150830</div>
-                </div>
-                <span class="menu-btn">☰</span>
-            </div>
-            
-            <div class="welcome-strip">
-                Thank You Soham Khedekar, Happy Journey !
-            </div>
-            
-            <!-- Dynamic Banner -->
-            <div class="dynamic-banner">
-                <div class="d-text">Dynamic preview will close in</div>
-                <div class="timer" id="clock">04:56</div>
-                <div class="d-text">Ticket Booking Date & Time</div>
-                <div class="d-date">20 Sep 2026, 13:03</div>
-                <div class="r-code">R17683</div>
-                <div class="d-text">Ticket is Non-Transferable</div>
-            </div>
-            
-            <!-- Data Grid -->
-            <div class="ticket-data">
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Season Ticket</span><span class="d-val">X0F7EES082</span></div>
-                    <div class="data-group"><span class="d-val-active" style="text-align: right;">● ACTIVE</span></div>
-                </div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Source</span><span class="d-val">MANKHURD</span></div>
-                    <div class="data-group"><span class="d-lbl">Destination</span><span class="d-val">GHATKOPAR</span></div>
-                </div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Distance</span><span class="d-val">10 km</span></div>
-                    <div class="data-group"><span class="d-lbl">Booked on</span><span class="d-val">20/09/2026 13:03:47</span></div>
-                </div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Ticket Type</span><span class="d-val">QUARTERLY</span></div>
-                    <div class="data-group"><span class="d-lbl">Train Types</span><span class="d-val">ORDINARY</span></div>
-                </div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Class</span><span class="d-val">FIRST</span></div>
-                    <div class="data-group"><span class="d-lbl">Fare</span><span class="d-val">925.00</span></div>
-                </div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Valid From</span><span class="d-val">20/09/2026</span></div>
-                    <div class="data-group"><span class="d-lbl">Valid Upto</span><span class="d-val">19/12/2026</span></div>
-                </div>
-                <div class="via-row"><span style="font-size: 16px; font-weight:normal;">⇄</span> Via: 1RT>>CLA</div>
-                <div class="data-row">
-                    <div class="data-group"><span class="d-lbl">Name</span><span class="d-val">Soham Khedekar</span></div>
-                    <div class="data-group"><span class="d-lbl">Age</span><span class="d-val">19 years</span></div>
-                </div>
-                <div class="data-row" style="padding-bottom: 8px;">
-                    <div class="data-group"><span class="d-lbl">ID Type*</span><span class="d-val">N/A</span></div>
-                    <div class="data-group"><span class="d-lbl">ID Number</span><span class="d-val">PQQPK5756L</span></div>
-                </div>
-            </div>
-            
-            <!-- Bottom Section -->
-            <div class="bottom-section">
-                <div class="pink-note">
-                    Note: This ticket is non refundable. Ticket is stored locally on the device. Please do not change your handset or perform factory reset.
-                </div>
-                
-                <button class="upgrade-btn">Upgrade to Superfast</button>
-                
-                <div id="qrcode"></div>
-            </div>
-            
-            <!-- Gray Footer -->
-            <div class="footer-rules">
-                <strong>Do you know?</strong>
-                <p>IR recovers only 57% of cost of travel on an average.</p>
-                <p>This ticket is booked on a personal user ID. It's sale/purchase is an offence u/s 143 of the Railways Act, 1989</p>
-                <p style="margin-bottom: 0;">For enquiry and integrated railway helpline, please dial 139.</p>
-            </div>
+
+    <!-- Header Section -->
+    <div class="header-title">INDIAN RAILWAYS</div>
+    <div class="dynamic-timer">Dynamic preview will close in<br>00:23</div>
+    
+    <div class="booking-header">
+        Ticket Booking Date & Time<br>
+        <strong>20 Jul 2026, 09:58</strong><br>
+        R17696<br>
+        Ticket is Non-Transferable
+    </div>
+
+    <div class="status-bar">
+        Season Ticket | X07EEES1B6 | • ACTIVE
+    </div>
+
+    <!-- Main Ticket Details -->
+    <div class="data-grid">
+        <div class="data-item">
+            <span class="data-label">Source</span>
+            <span class="data-value">PANVEL</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Destination</span>
+            <span class="data-value">GHATKOPAR</span>
         </div>
 
-        <script>
-            // Generate QR Code
-            new QRCode(document.getElementById("qrcode"), {
-                text: "X0F7EES082-SOHAM-KHEDEKAR-MANKHURD-GHATKOPAR",
-                width: 140,
-                height: 140,
-                colorDark : "#000000",
-                colorLight : "#ffffff"
-            });
+        <div class="data-item">
+            <span class="data-label">Distance</span>
+            <span class="data-value">38 km</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Booked on</span>
+            <span class="data-value">20/07/2026 09:58</span>
+        </div>
 
-            // Countdown Timer Logic
-            let seconds = 296; // 04:56
-            setInterval(() => {
-                seconds--;
-                if(seconds < 0) seconds = 300;
-                let m = Math.floor(seconds / 60).toString().padStart(2, '0');
-                let s = (seconds % 60).toString().padStart(2, '0');
-                document.getElementById('clock').innerText = m + ':' + s;
-            }, 1000);
-        </script>
+        <div class="data-item">
+            <span class="data-label">Ticket Type</span>
+            <span class="data-value">QUARTERLY</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Train Types</span>
+            <span class="data-value">ORDINARY</span>
+        </div>
+
+        <div class="data-item">
+            <span class="data-label">Class</span>
+            <span class="data-value">FIRST</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Fare</span>
+            <span class="data-value">2775.00</span>
+        </div>
+
+        <div class="data-item">
+            <span class="data-label">Valid From</span>
+            <span class="data-value">21/07/2026</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Valid Upto</span>
+            <span class="data-value">20/10/2026</span>
+        </div>
+    </div>
+
+    <div class="via-route">
+        Via: 1RT>>JNJ-SNCR-CLA
+    </div>
+
+    <!-- Passenger Details -->
+    <div class="passenger-section">
+        <div class="data-grid">
+            <div class="data-item">
+                <span class="data-label">Name</span>
+                <span class="data-value">Pratham Mhatre</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Age</span>
+                <span class="data-value">19 years</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">ID Type*</span>
+                <span class="data-value">PAN Card</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">ID Number</span>
+                <span class="data-value">JWIPM1666P</span>
+            </div>
+        </div>
+        
+        <div class="data-item" style="margin-top: 10px;">
+            <span class="data-label">Mobile:</span>
+            <span class="data-value">9136300918</span>
+        </div>
+    </div>
+
+    <div class="footer-greeting">
+        Thank You Pratham Mhatre, Happy Journey!
+    </div>
+</div>
+    
+  
     </body>
     </html>
     """
